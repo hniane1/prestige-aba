@@ -74,6 +74,30 @@ body {
     object-fit: contain;
 }
 
+.logo-text-fallback {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+}
+
+.logo-prestige {
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    background: linear-gradient(135deg, var(--primary-blue), var(--orange));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.logo-subtitle {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--gray-600);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
 .mobile-menu-btn {
     display: none;
     flex-direction: column;
@@ -799,6 +823,28 @@ section {
     object-fit: contain;
     margin-bottom: 1.5rem;
     filter: brightness(1.2);
+}
+
+.footer-logo-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.footer-logo-text .logo-prestige {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: white;
+}
+
+.footer-logo-text .logo-subtitle {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--orange);
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 .footer-col p {
