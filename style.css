@@ -67,11 +67,12 @@ body {
     align-items: center;
 }
 
-.logo img {
+.logo-img {
     height: 60px;
     width: auto;
-    max-width: 200px;
+    max-width: 250px;
     object-fit: contain;
+    display: block;
 }
 
 .logo-text-fallback {
@@ -817,12 +818,12 @@ section {
 }
 
 .footer-logo {
-    height: 60px;
+    height: 70px;
     width: auto;
-    max-width: 200px;
+    max-width: 250px;
     object-fit: contain;
     margin-bottom: 1.5rem;
-    filter: brightness(1.2);
+    display: block;
 }
 
 .footer-logo-text {
