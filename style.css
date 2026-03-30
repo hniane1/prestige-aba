@@ -70,6 +70,8 @@ body {
 .logo img {
     height: 60px;
     width: auto;
+    max-width: 200px;
+    object-fit: contain;
 }
 
 .mobile-menu-btn {
@@ -541,6 +543,89 @@ section {
     line-height: 1.7;
 }
 
+/* Insurance Section */
+.insurance {
+    background: white;
+}
+
+.insurance-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.insurance-intro {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--gray-700);
+    line-height: 1.8;
+    margin-bottom: 3rem;
+}
+
+.insurance-logos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.insurance-card {
+    background: var(--gray-100);
+    padding: 2.5rem;
+    border-radius: 20px;
+    text-align: center;
+    transition: all 0.3s;
+    border: 2px solid transparent;
+}
+
+.insurance-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--primary-blue);
+    background: white;
+}
+
+.insurance-logo {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.insurance-logo svg {
+    max-width: 100%;
+    height: auto;
+}
+
+.insurance-card h3 {
+    font-size: 1.35rem;
+    color: var(--gray-900);
+    margin-bottom: 0.75rem;
+}
+
+.insurance-card p {
+    color: var(--gray-600);
+    line-height: 1.6;
+}
+
+.insurance-cta {
+    background: linear-gradient(135deg, rgba(30, 90, 150, 0.05), rgba(245, 166, 35, 0.05));
+    padding: 2.5rem;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.insurance-cta p {
+    font-size: 1.15rem;
+    color: var(--gray-700);
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+}
+
+.insurance-cta strong {
+    color: var(--primary-blue);
+}
+
 /* Team Section */
 .team {
     background: var(--gray-100);
@@ -710,8 +795,10 @@ section {
 .footer-logo {
     height: 60px;
     width: auto;
+    max-width: 200px;
+    object-fit: contain;
     margin-bottom: 1.5rem;
-    filter: brightness(0) invert(1);
+    filter: brightness(1.2);
 }
 
 .footer-col p {
