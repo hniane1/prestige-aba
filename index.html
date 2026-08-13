@@ -634,29 +634,29 @@
 
         <div class="bg-white rounded-3xl shadow-xl border border-gray-100 p-8">
           <h3 class="text-2xl font-extrabold text-gray-900 mb-6">Schedule a Free Consultation</h3>
-          <form class="space-y-5" onsubmit="handleSubmit(event)">
+          <form id="consultForm" class="space-y-5" action="send.php" method="POST" onsubmit="handleSubmit(event)">
             <div class="grid grid-cols-2 gap-4">
               <div>
                 <label class="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
-                <input type="text" placeholder="Jane Doe" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all text-sm" />
+                <input type="text" name="name" required placeholder="Jane Doe" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all text-sm" />
               </div>
               <div>
                 <label class="block text-sm font-semibold text-gray-700 mb-2">Phone Number</label>
-                <input type="tel" placeholder="(555) 000-0000" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all text-sm" />
+                <input type="tel" name="phone" placeholder="(555) 000-0000" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all text-sm" />
               </div>
             </div>
             <div>
               <label class="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
-              <input type="email" placeholder="your@email.com" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all text-sm" />
+              <input type="email" name="email" required placeholder="your@email.com" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all text-sm" />
             </div>
             <div class="grid grid-cols-2 gap-4">
               <div>
                 <label class="block text-sm font-semibold text-gray-700 mb-2">Child's Age</label>
-                <input type="number" placeholder="e.g. 5" min="2" max="21" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all text-sm" />
+                <input type="number" name="child_age" placeholder="e.g. 5" min="2" max="21" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all text-sm" />
               </div>
               <div>
                 <label class="block text-sm font-semibold text-gray-700 mb-2">Insurance Provider</label>
-                <select class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all text-sm">
+                <select name="insurance" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all text-sm">
                   <option value="">Select insurance</option>
                   <option>Aetna</option>
                   <option>Geisinger Health Plan</option>
@@ -667,13 +667,15 @@
             </div>
             <div>
               <label class="block text-sm font-semibold text-gray-700 mb-2">Tell Us About Your Child</label>
-              <textarea rows="4" placeholder="Briefly describe your child's needs and what you're hoping to achieve with ABA therapy..." class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all text-sm resize-none"></textarea>
+              <textarea name="message" rows="4" placeholder="Briefly describe your child's needs and what you're hoping to achieve with ABA therapy..." class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all text-sm resize-none"></textarea>
             </div>
+            <!-- honeypot: hidden from humans, catches bots -->
+            <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" class="hidden" />
             <button type="submit" class="w-full bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-teal-200/60 hover:shadow-teal-300/80 flex items-center justify-center gap-2">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
               Send My Request
             </button>
-            <p class="text-center text-xs text-gray-400">We'll respond within 24 hours · No obligation</p>
+            <p id="formStatus" class="text-center text-xs text-gray-400">We'll respond within 24 hours · No obligation</p>
           </form>
         </div>
       </div>
@@ -773,16 +775,37 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.section-fade').forEach(el => observer.observe(el));
 
-    // Form submission
-    function handleSubmit(e) {
+    // Form submission — POSTs to send.php, which emails kadi@prestigeaba.org
+    async function handleSubmit(e) {
       e.preventDefault();
-      const btn = e.target.querySelector('button[type="submit"]');
+      const form = e.target;
+      const btn = form.querySelector('button[type="submit"]');
+      const status = form.querySelector('#formStatus');
+      const original = btn.innerHTML;
+      btn.disabled = true;
       btn.innerHTML = '<svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg> Sending...';
-      setTimeout(() => {
-        btn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Request Sent!';
-        btn.classList.remove('from-teal-600', 'to-cyan-600');
-        btn.classList.add('from-green-500', 'to-emerald-500');
-      }, 1500);
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        let data = {};
+        try { data = await res.json(); } catch (_) {}
+        if (res.ok && data.ok) {
+          btn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Request Sent!';
+          btn.classList.remove('from-teal-600', 'to-cyan-600');
+          btn.classList.add('from-green-500', 'to-emerald-500');
+          if (status) { status.textContent = "Thank you! We've received your request and will respond within 24 hours."; status.classList.remove('text-gray-400'); status.classList.add('text-green-600'); }
+          form.reset();
+        } else {
+          throw new Error((data && data.error) || 'send_failed');
+        }
+      } catch (err) {
+        btn.disabled = false;
+        btn.innerHTML = original;
+        if (status) { status.textContent = 'Something went wrong. Please email kadi@prestigeaba.org directly.'; status.classList.remove('text-gray-400'); status.classList.add('text-red-500'); }
+      }
     }
   </script>
 </body>
